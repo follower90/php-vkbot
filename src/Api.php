@@ -1,6 +1,6 @@
 <?php
 
-class VkApi
+class Api
 {
 	private $_params = [];
 	private static $_instance = null;
@@ -26,7 +26,7 @@ class VkApi
 
 	public function getUserInfo($id)
 	{
-		return $this->_request('users.get', ['id' => $id]);
+		return $this->_request('users.get', ['user_ids' => $id]);
 	}
 
 	public function sendMessage($params)

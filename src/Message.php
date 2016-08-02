@@ -51,4 +51,10 @@ class Message
 
 		return $params;
 	}
+
+	public function getSenderName()
+	{
+		$user = Api::getInstance()->getUserInfo($this->userId());
+		return $user[0]['first_name'] . ' ' . $user[0]['last_name'];
+	}
 }

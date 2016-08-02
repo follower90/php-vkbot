@@ -31,7 +31,7 @@ class AI
 		if (!$result) {
 			
 			if ($user) {
-				$user = VkApi::getInstance()->getUserInfo($user);
+				$user = Api::getInstance()->getUserInfo($user);
 				$name = $user[0]['first_name'] . ' ' . $user[0]['last_name'];
 			}
 			Logger::logInfo('Message: "' . $text . '" from "' . $name .'" does not match any existing rule');
