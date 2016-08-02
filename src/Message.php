@@ -1,0 +1,45 @@
+<?php
+
+class Message
+{
+	protected $_id;
+	protected $_timestamp;
+	protected $_readState;
+	protected $_userId;
+	protected $_chatId;
+	protected $_message;
+
+	public function __construct($params)
+	{
+		$this->_id = $params['mid'];
+		$this->_timestamp = $params['date'];
+		$this->_readState = $params['read_state'];
+		$this->_userId = isset($params['uid']) ? $params['uid'] : null;
+		$this->_chatId = isset($params['chat_id']) ? $params['chat_id'] : null;
+		$this->_message = $params['body'];
+	}
+
+	public function isPrivateMessage()
+	{
+		return isset($this->_userId);
+	}
+
+	public function getText()
+	{
+		return $this->_message;
+	}
+
+	public function respondToMessage($text)
+	{
+		$params = [];
+		$params['message'] = $text;
+
+		if ($this->isPrivateMessage()) {
+			$params['user_id'] = $this->_userId;
+		} else {
+			$params['chat_id'] = $this->_chatId;
+		}
+
+		return $params;
+	}
+}
