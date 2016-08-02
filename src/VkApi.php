@@ -3,18 +3,30 @@
 class VkApi
 {
 	private $_params = [];
+	private static $_instance = null;
 
 	public static function configure($params)
 	{
 		$api = new self();
 		$api->_params = $params;
 
-		return $api;
+		self::$_instance = $api;
+		return self::$_instance;
+	}
+
+	public static function getInstance()
+	{
+		return self::$_instance;
 	}
 
 	public function getLastUnreadMessages($interval)
 	{
 		return $this->_request('messages.get', ['time_offset' => $interval]);
+	}
+
+	public function getUserInfo($id)
+	{
+		return $this->_request('users.get', ['id' => $id]);
 	}
 
 	public function sendMessage($params)

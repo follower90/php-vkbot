@@ -17,11 +17,20 @@ class Message
 		$this->_userId = isset($params['uid']) ? $params['uid'] : null;
 		$this->_chatId = isset($params['chat_id']) ? $params['chat_id'] : null;
 		$this->_message = $params['body'];
+		$this->_out = $params['out'];
 	}
+
+	public function userId() { return $this->_userId; }
+	public function chatId() { return $this->_chatId; }
 
 	public function isPrivateMessage()
 	{
 		return isset($this->_userId);
+	}
+
+	public function isIncoming()
+	{
+		return $this->_out == '0';
 	}
 
 	public function getText()

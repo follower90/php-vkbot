@@ -6,9 +6,9 @@ class Bot
 
 	private $_api;
 
-	public function __construct(VkApi $api)
+	public function __construct()
 	{
-		$this->_api = $api;
+		$this->_api = VkApi::getInstance();
 	}
 
 	public function start()
@@ -30,11 +30,12 @@ class Bot
 
 		foreach ($messages as $message) {
 			$message = new Message($message);
-			$responseText = AI::getAction($message->getText());
+			if (!$message->isIncoming()) continue;
+			$responseText = AI::getAction($message->getText(), $message->userId(), $message->chatId());
 
 			if ($responseText) {
-				Logger::logInfo('got message: ' . $message->getText());
-				Logger::logInfo('sent: ' . $responseText);
+				Logger::logInfo('Got message: ' . $message->getText());
+				Logger::logInfo('Sent: ' . $responseText);
 
 				try {
 					$this->_api->sendMessage($message->respondToMessage($responseText));

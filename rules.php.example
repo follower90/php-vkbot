@@ -1,0 +1,6 @@
+<?php
+
+$rules = [
+	['operation' => 'equals', 'in' => 'привет', 'out' => 'пока)', 'users' => '1', 'chats' => '135'],
+	['operation' => 'contains', 'in' => '/тест', 'out' => '/ответ)', 'users' => '1,3', 'chats' => ''],
+];
