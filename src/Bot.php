@@ -33,10 +33,10 @@ class Bot
 			$message = new Message($message);
 			if (!$message->isIncoming()) continue;
 
+			Logger::logInfo('Got message: "' . $message->getText() . '" from "' . $message->getSenderName() .'"');
 			$responseText = AI::getAction($message->getText(), $message->userId(), $message->chatId());
 
 			if ($responseText) {
-				Logger::logInfo('Got message: "' . $message->getText() . '" from "' . $message->getSenderName() .'"');
 				Logger::logInfo('Sent: ' . $responseText);
 
 				try {
