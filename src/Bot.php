@@ -26,8 +26,6 @@ class Bot
 		$messages = $this->_api->getLastUnreadMessages(self::TIMEOUT);
 		array_shift($messages);
 
-		Logger::logInfo('Got ' . count($messages) . ' messages...');
-
 		foreach ($messages as $message) {
 
 			$message = new Message($message);
