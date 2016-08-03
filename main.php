@@ -33,5 +33,8 @@ class Application {
 	}
 }
 
+Db::setFileLocation('database.db');
+$db = Db::getInstance();
+
 $app = new Application();
 $app->run();

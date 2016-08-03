@@ -1,3 +1,4 @@
 .idea
 config.php
-rules.php
+*~
+.DS_Store

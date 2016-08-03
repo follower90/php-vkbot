@@ -5,9 +5,7 @@ class AI
 	public static function getAction($text, $user, $chat)
 	{
 		$result = null;
-
-		/// SWITCH THIS SHIT TO USE ANY DATABASE
-		require ('rules.php');
+		$rules = Db::getInstance()->rows("SELECT * FROM rules");
 
 		foreach ($rules as $rule) {
 			$matches = false;
@@ -18,14 +16,14 @@ class AI
 
 			switch ($rule['operation']) {
 				case 'equals':
-					if ($msg == $rule['in']) $matches = true;
+					if ($msg == $rule['message_in']) $matches = true;
 					break;
 				case 'contains':
-					if (strpos($msg, $rule['in']) !== false) $matches = true;
+					if (strpos($msg, $rule['message_in']) !== false) $matches = true;
 					break;
 			};
 
-			if ($matches) $result = $rule['out'];
+			if ($matches) $result = $rule['message_out'];
 		}
 
 		if (!$result) {

@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+	<title>Настройка бота</title>
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+	<h1>Правила бота</h1>
+
+	<p>Операция сравнения - <b>equals</b>, или <b>contains</b></p>
+	<p>ID пользоватей и ID бесед - заполнить одно из них, если нужен такой фильтр (id через запятую)</p>
+
+	<form method="post">
+		<table class="table rules">
+			<thead>
+			<tr>
+				<th>Операция</th>
+				<th>Сообщение</th>
+				<th>Ответ</th>
+				<th>ID пользователей</th>
+				<th>ID бесед</th>
+				<th width="200"></th>
+			</tr>
+			</thead>
+			<tbody>
+			<?php foreach ($rules as $rule) { ?>
+				<tr>
+					<td><input placeholder="Операция" name="operation[]" type="text"
+							   value="<?php echo $rule['operation']; ?>"/></td>
+					<td><input placeholder="Сообщение" name="message_in[]" type="text"
+							   value="<?php echo $rule['message_in']; ?>"/></td>
+					<td><input placeholder="Ответ" name="message_out[]" type="text"
+							   value="<?php echo $rule['message_out']; ?>"/></td>
+					<td><input placeholder="ID пользователей" name="users[]" type="text"
+							   value="<?php echo $rule['users']; ?>"/></td>
+					<td><input placeholder="ID бесед" name="chats[]" type="text" value="<?php echo $rule['chats']; ?>"/>
+					</td>
+					<td><a class="remove">Удалить</a></td>
+				</tr>
+			<?php } ?>
+			</tbody>
+		</table>
+
+		<input type="submit" name="create" value="Добавить правило"/>
+		<input type="submit" name="submit" value="Сохранить изменения"/>
+	</form>
+</div>
+<script>
+	window.onload = function () {
+		var rules = document.querySelector('.rules');
+
+		rules.addEventListener('click', function (e) {
+			if (e.target.className === 'remove' && confirm('Правило будет удалено. Вы уверены?')) {
+				var rule = e.target.parentNode.parentNode;
+				rule.parentNode.removeChild(rule);
+			}
+		});
+	};
+</script>
+</body>
+</html>
+

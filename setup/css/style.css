@@ -1,0 +1,15 @@
+.rules input {
+    padding: 2px 5px;
+    outline: none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.rules input:hover, .rules input:focus {
+    border: 1px solid #ccc;
+    transition: .3s;
+}
+
+.new-rule {
+    display: none;
+}
