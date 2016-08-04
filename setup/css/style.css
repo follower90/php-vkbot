@@ -13,3 +13,6 @@
 .new-rule {
     display: none;
 }
+.remove {
+    cursor: pointer;
+}

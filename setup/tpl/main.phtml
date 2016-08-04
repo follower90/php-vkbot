@@ -1,50 +1,50 @@
 <!doctype html>
 <html>
 <head>
-	<title>Настройка бота</title>
+	<title>Vk Bot Web UI</title>
 	<link rel="stylesheet" href="../css/bootstrap.min.css">
 	<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 <div class="container-fluid">
-	<h1>Правила бота</h1>
+	<h1>Vk Bot Setup</h1>
 
-	<p>Операция сравнения - <b>equals</b>, или <b>contains</b></p>
-	<p>ID пользоватей и ID бесед - заполнить одно из них, если нужен такой фильтр (id через запятую)</p>
+	<p>Comparison operator - <b>equals</b>, or <b>contains</b></p>
+	<p>User IDs and Chat IDs - you can fill one of them, if filtering is required (comma separated numbers)</p>
 
 	<form method="post">
 		<table class="table rules">
 			<thead>
 			<tr>
-				<th>Операция</th>
-				<th>Сообщение</th>
-				<th>Ответ</th>
-				<th>ID пользователей</th>
-				<th>ID бесед</th>
+				<th>Comparison operator</th>
+				<th>Message</th>
+				<th>Answer</th>
+				<th>User IDs</th>
+				<th>Chat Ids</th>
 				<th width="200"></th>
 			</tr>
 			</thead>
 			<tbody>
 			<?php foreach ($rules as $rule) { ?>
 				<tr>
-					<td><input placeholder="Операция" name="operation[]" type="text"
+					<td><input placeholder="Operation" name="operation[]" type="text"
 							   value="<?php echo $rule['operation']; ?>"/></td>
-					<td><input placeholder="Сообщение" name="message_in[]" type="text"
+					<td><input placeholder="Message" name="message_in[]" type="text"
 							   value="<?php echo $rule['message_in']; ?>"/></td>
-					<td><input placeholder="Ответ" name="message_out[]" type="text"
+					<td><input placeholder="Answer" name="message_out[]" type="text"
 							   value="<?php echo $rule['message_out']; ?>"/></td>
-					<td><input placeholder="ID пользователей" name="users[]" type="text"
+					<td><input placeholder="User IDs" name="users[]" type="text"
 							   value="<?php echo $rule['users']; ?>"/></td>
-					<td><input placeholder="ID бесед" name="chats[]" type="text" value="<?php echo $rule['chats']; ?>"/>
+					<td><input placeholder="Chat IDs" name="chats[]" type="text" value="<?php echo $rule['chats']; ?>"/>
 					</td>
-					<td><a class="remove">Удалить</a></td>
+					<td><a class="remove">Remove rule</a></td>
 				</tr>
 			<?php } ?>
 			</tbody>
 		</table>
 
-		<input type="submit" name="create" value="Добавить правило"/>
-		<input type="submit" name="submit" value="Сохранить изменения"/>
+		<input type="submit" name="create" value="Add more"/>
+		<input type="submit" name="submit" value="Save changes"/>
 	</form>
 </div>
 <script>
@@ -52,7 +52,7 @@
 		var rules = document.querySelector('.rules');
 
 		rules.addEventListener('click', function (e) {
-			if (e.target.className === 'remove' && confirm('Правило будет удалено. Вы уверены?')) {
+			if (e.target.className === 'remove') {
 				var rule = e.target.parentNode.parentNode;
 				rule.parentNode.removeChild(rule);
 			}
