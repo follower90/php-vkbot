@@ -23,9 +23,17 @@ class AI
 					break;
 			};
 
-			if ($matches) $result = $rule['message_out'];
+			if ($matches) {
+				$result = self::processResultMessage($msg, $rule['message_out']);
+			}
 		}
 
 		return $result;
+	}
+
+	private static function processResultMessage($incomingMessage, $messageRule)
+	{
+		$items = explode('|', $messageRule);
+		return $items[mt_rand(0, count($items) - 1)];
 	}
 }

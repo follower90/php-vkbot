@@ -1,14 +1,29 @@
-# PHP Vk Bot
+# PHP Vk Bot 1.0
 
-#### 1) Create application at http://vk.com
+### Features
 
-#### 2) Open link in browser with your App ID, allow access and then copy access_token 
-    https://oauth.vk.com/authorize?client_id=<YOUR_APP_ID>&redirect_uri=http://api.vk.com/blank.html&scope=offline,messages,friends,status,wall&display=page&response_type=token
+ * Outputs all incoming messages to log (console only implemented).
+ * Answers by rules based on incoming messages (equality or containing some text)
+ * You can add more than one answer, separated with "|", random answer will be sent
+ * Rules are configurable on web ui
 
-#### 3) Rename config.php.example to config.php
 
-#### 4) Paste token to config.php file
+### Configuration
 
-#### 5) Open link http://localhost:1200 with Vk Bot setup Web UI
+ * Clone repository
+ * Copy config.php.example to config.php
+ * Open following link with your application id to get access_token
 
-#### 6) Launch bot from command line: "php main.php"
+```
+https://oauth.vk.com/authorize?client_id=<YOUR_APP_ID>&redirect_uri=http://api.vk.com/blank.html&scope=offline,messages,friends,status,wall&display=page&response_type=token
+```
+   
+ * To setup bot rules run the following code and open this link http://localhost:1200
+```
+cd setup && php -S localhost:1200
+```
+
+* Launch bot and enjoy
+```
+php main.php
+```
