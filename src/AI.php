@@ -1,11 +1,17 @@
 <?php
 
-class AI
+class AI implements IAI
 {
-	public static function getAction($text, $user, $chat)
+	private $_db;
+
+	public function __construct(IDatabase $db)
 	{
+		$this->_db = new $db();
+	}
+
+	public function getAnswer($text, $user = null, $chat = null) {
 		$result = null;
-		$rules = Db::getInstance()->rows("SELECT * FROM rules");
+		$rules = $this->_db->rows("SELECT * FROM rules");
 
 		foreach ($rules as $rule) {
 			$matches = false;
@@ -24,7 +30,7 @@ class AI
 			};
 
 			if ($matches) {
-				$result = self::processResultMessage($msg, $rule['message_out']);
+				$result = $this->processResultMessage($msg, $rule['message_out']);
 			}
 		}
 

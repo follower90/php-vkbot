@@ -5,15 +5,19 @@ class Bot
 	const TIMEOUT = 3;
 
 	private $_api;
+	private $_ai;
+	private $_log;
 
-	public function __construct()
+	public function __construct(Api $api, IAI $ai, ILogger $log)
 	{
-		$this->_api = Api::getInstance();
+		$this->_api = $api;
+		$this->_ai = $ai;
+		$this->_log = $log;
 	}
 
 	public function start()
 	{
-		Logger::logInfo('Bot started! Working!');
+		$this->_log->logInfo('Bot started! Working!');
 
 		while (true) {
 			$this->work();
@@ -24,23 +28,23 @@ class Bot
 	public function work()
 	{
 		$messages = $this->_api->getLastUnreadMessages(self::TIMEOUT);
-		array_shift($messages);
 
 		foreach ($messages as $message) {
-
 			$message = new Message($message);
 			if (!$message->isIncoming()) continue;
 
-			Logger::logInfo('Got message: "' . $message->getText() . '" from "' . $message->getSenderName() .'"');
-			$responseText = AI::getAction($message->getText(), $message->userId(), $message->chatId());
+			$userName = $this->_api->getUserName($message->getUserId());
+			$this->_log->logInfo('Got message: "' . $message->getText() . '" from "' . $userName .'"');
+
+			$responseText = $this->_ai->getAnswer($message->getText(), $message->userId(), $message->chatId());
 
 			if ($responseText) {
-				Logger::logInfo('Sent: ' . $responseText);
+				$this->_log->logInfo('Sent: ' . $responseText);
 
 				try {
 					$this->_api->sendMessage($message->respondToMessage($responseText));
 				} catch (\Exception $e) {
-					Logger::logError($e->getMessage());
+					$this->_log->logError($e->getMessage());
 				}
 			}
 		}

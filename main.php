@@ -1,7 +1,7 @@
 <?php
 
 require_once('src/autoload.php');
-Db::setFileLocation('database.db');
+SqliteDb::setFileLocation('database.db');
 
 class Application
 {
@@ -11,9 +11,14 @@ class Application
 		require_once('config.php');
 
 		Api::configure($config);
-		$bot = new Bot();
+		$db = SqliteDb::getInstance();
+
+		$ai = new AI($db);
+		$api = Api::getInstance();
+		$logger = new Console();
+
+		$bot = new Bot($api, $ai, $logger);
 		$bot->start();
-		pcntl_wait($status);
 	}
 }
 

@@ -1,6 +1,6 @@
 <?php
 
-class Db extends SQLite3
+class SqliteDb extends SQLite3 implements IDatabase
 {
 	private static $_instance;
 	private static $_path;
@@ -17,9 +17,14 @@ class Db extends SQLite3
 		}
 	}
 
+	public function query($query)
+	{
+		return parent::query($query);
+	}
+
 	public function rows($query)
 	{
-		$query = self::$_instance->query($query);
+		$query = $this->query($query);
 		$result = [];
 
 		while ($row = $query->fetchArray(1)) {

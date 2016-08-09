@@ -21,7 +21,9 @@ class Api
 
 	public function getLastUnreadMessages($interval)
 	{
-		return $this->_request('messages.get', ['time_offset' => $interval]);
+		$data = $this->_request('messages.get', ['time_offset' => $interval]);
+		array_shift($data);
+		return $data;
 	}
 
 	public function getUserInfo($id)
@@ -32,6 +34,12 @@ class Api
 	public function sendMessage($params)
 	{
 		$this->_request('messages.send', $params);
+	}
+
+	public function getUserName($id)
+	{
+		$user = $this->getUserInfo($id);
+		return $user[0]['first_name'] . ' ' . $user[0]['last_name'];
 	}
 
 

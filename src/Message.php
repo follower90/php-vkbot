@@ -33,6 +33,11 @@ class Message
 		return $this->_out == '0';
 	}
 
+	public function getUserId()
+	{
+		return $this->_userId;
+	}
+
 	public function getText()
 	{
 		return $this->_message;
@@ -50,11 +55,5 @@ class Message
 		}
 
 		return $params;
-	}
-
-	public function getSenderName()
-	{
-		$user = Api::getInstance()->getUserInfo($this->userId());
-		return $user[0]['first_name'] . ' ' . $user[0]['last_name'];
 	}
 }
