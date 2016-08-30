@@ -23,6 +23,10 @@ https://oauth.vk.com/authorize?client_id=<YOUR_APP_ID>&redirect_uri=http://api.v
 cd setup && php -S localhost:1200
 ```
 
+* Setup your rules
+Provide user id or chat id to filter or leave this fields empty to enable rules for all at
+http://localhost:1200
+
 * Launch bot and enjoy
 ```
 php main.php
