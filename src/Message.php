@@ -23,19 +23,24 @@ class Message
 	public function userId() { return $this->_userId; }
 	public function chatId() { return $this->_chatId; }
 
-	public function isPrivateMessage()
+	public function isPrivate()
 	{
-		return isset($this->_userId);
+		return $this->_chatId == null;
 	}
 
 	public function isIncoming()
 	{
-		return $this->_out == '0';
+		return $this->_out == 0;
 	}
 
 	public function getUserId()
 	{
 		return $this->_userId;
+	}
+
+	public function getChatId()
+	{
+		return $this->_chatId;
 	}
 
 	public function getText()
@@ -48,7 +53,7 @@ class Message
 		$params = [];
 		$params['message'] = $text;
 
-		if ($this->isPrivateMessage()) {
+		if ($this->isPrivate()) {
 			$params['user_id'] = $this->_userId;
 		} else {
 			$params['chat_id'] = $this->_chatId;

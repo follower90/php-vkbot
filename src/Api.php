@@ -31,6 +31,11 @@ class Api
 		return $this->_request('users.get', ['user_ids' => $id]);
 	}
 
+	public function getChatInfo($id)
+	{
+		return $this->_request('messages.getChat', ['chat_id' => $id]);
+	}
+
 	public function sendMessage($params)
 	{
 		$this->_request('messages.send', $params);
@@ -42,6 +47,11 @@ class Api
 		return $user[0]['first_name'] . ' ' . $user[0]['last_name'];
 	}
 
+	public function getChatName($id)
+	{
+		$chat = $this->getChatInfo($id);
+		return $chat['title'];
+	}
 
 	private function _request($method, $params)
 	{

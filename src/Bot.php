@@ -30,11 +30,15 @@ class Bot
 		$messages = $this->_api->getLastUnreadMessages(self::TIMEOUT);
 
 		foreach ($messages as $message) {
+
 			$message = new Message($message);
 			if (!$message->isIncoming()) continue;
 
-			$userName = $this->_api->getUserName($message->getUserId());
-			$this->_log->logInfo('Got message: "' . $message->getText() . '" from "' . $userName .'"');
+			$sender = $message->isPrivate()
+					? $this->_api->getUserName($message->getUserId())
+					: $this->_api->getChatName($message->getChatId());
+
+			$this->_log->logInfo('Got message: "' . $message->getText() . '" from "' . $sender .'"');
 
 			$responseText = $this->_ai->getAnswer($message->getText(), $message->userId(), $message->chatId());
 

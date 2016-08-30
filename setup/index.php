@@ -3,8 +3,8 @@
 require_once('../src/autoload.php');
 
 
-Db::setFileLocation('../database.db');
-$db = Db::getInstance();
+SqliteDb::setFileLocation('../database.db');
+$db = SqliteDb::getInstance();
 
 if(isset($_POST['create'])) {
 	$db->exec('INSERT INTO rules VALUES("","","","","")');
